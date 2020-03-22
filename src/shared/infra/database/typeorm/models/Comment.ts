@@ -20,7 +20,7 @@ export class Comment extends BaseEntity {
   @Column()
   text!: string;
 
-  @Column()
+  @Column({ default: 0 })
   points!: number;
 
   @CreateDateColumn({ type: "timestamp" })

@@ -1,6 +1,5 @@
 export class Result<T> {
   public isSuccess: boolean;
-  public isFailure: boolean;
   public error?: T | string;
   private readonly _value?: T;
 
@@ -17,7 +16,6 @@ export class Result<T> {
     }
 
     this.isSuccess = isSuccess;
-    this.isFailure = !isSuccess;
     this.error = error;
     this._value = value;
 
@@ -49,7 +47,7 @@ export class Result<T> {
 
   public static combine(results: Result<unknown>[]): Result<unknown> {
     for (let result of results) {
-      if (result.isFailure) return result;
+      if (!result.isSuccess) return result;
     }
     return Result.ok();
   }
