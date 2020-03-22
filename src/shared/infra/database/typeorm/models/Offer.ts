@@ -37,25 +37,22 @@ export class Offer extends BaseEntity {
   technology!: Technology;
 
   @Column()
-  city!: string;
+  level!: Level;
 
   @Column()
-  street!: string;
+  employmentType!: EmploymentType;
+
+  @Column()
+  cityName!: string;
+
+  @Column()
+  streetName!: string;
 
   @Column()
   priceMin!: number;
 
   @Column()
   priceMax!: number;
-
-  @Column()
-  level!: Level;
-
-  @Column()
-  employmentType!: EmploymentType;
-
-  @CreateDateColumn({ type: "timestamp" })
-  createdAt!: Date;
 
   @Column("text", { array: true })
   mustHave!: string[];
@@ -69,8 +66,11 @@ export class Offer extends BaseEntity {
   @Column("decimal")
   latitude!: number;
 
-  @Column()
+  @Column({ default: 0 })
   totalNumComments!: number;
+
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt!: Date;
 
   @ManyToOne(
     () => Employer,
@@ -78,6 +78,9 @@ export class Offer extends BaseEntity {
     { onDelete: "CASCADE", onUpdate: "CASCADE" }
   )
   employer!: Employer;
+
+  @Column()
+  employerId!: string;
 
   @OneToMany(
     () => Comment,

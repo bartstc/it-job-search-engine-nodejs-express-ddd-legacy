@@ -1,43 +1,43 @@
 import { ValueObject } from "shared/domain";
 import { Guard, Result } from "shared/core";
 
-interface CommentTextProps {
+interface OfferTitleProps {
   value: string;
 }
 
-export class CommentText extends ValueObject<CommentTextProps> {
+export class OfferTitle extends ValueObject<OfferTitleProps> {
   public static minLength = 2;
-  public static maxLength = 10000;
+  public static maxLength = 85;
 
   get value() {
     return this.props.value;
   }
 
-  private constructor(props: CommentTextProps) {
+  private constructor(props: OfferTitleProps) {
     super(props);
   }
 
-  public static create(props: CommentTextProps): Result<CommentText> {
+  public static create(props: OfferTitleProps): Result<OfferTitle> {
     const nullGuardResult = Guard.againstNullOrUndefined(
       props.value,
-      "commentText"
+      "offerTitle"
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<CommentText>(nullGuardResult.message!);
+      return Result.fail<OfferTitle>(nullGuardResult.message!);
     }
 
     const minGuardResult = Guard.againstAtLeast(this.minLength, props.value);
     const maxGuardResult = Guard.againstAtMost(this.maxLength, props.value);
 
     if (!minGuardResult.succeeded) {
-      return Result.fail<CommentText>(minGuardResult.message!);
+      return Result.fail<OfferTitle>(minGuardResult.message!);
     }
 
     if (!maxGuardResult.succeeded) {
-      return Result.fail<CommentText>(maxGuardResult.message!);
+      return Result.fail<OfferTitle>(maxGuardResult.message!);
     }
 
-    return Result.ok<CommentText>(new CommentText(props));
+    return Result.ok<OfferTitle>(new OfferTitle(props));
   }
 }

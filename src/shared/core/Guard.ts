@@ -139,4 +139,48 @@ export class Guard {
       return { succeeded: true };
     }
   }
+
+  public static isListOfStrings(
+    list: any[],
+    argumentName: string
+  ): IGuardResult {
+    let failingResult: IGuardResult | null = null;
+    for (let item in list) {
+      const isStringResult = this.isString(item, "listItem");
+      if (!isStringResult.succeeded) {
+        failingResult = isStringResult;
+      }
+    }
+
+    if (failingResult) {
+      return {
+        succeeded: false,
+        message: `All items of ${argumentName} list must by a string`
+      };
+    }
+
+    return { succeeded: true };
+  }
+
+  public static isString(value: any, argumentName: string): IGuardResult {
+    if (typeof value === "string" || value instanceof String) {
+      return { succeeded: true };
+    }
+
+    return {
+      succeeded: false,
+      message: `${argumentName} is not a string`
+    };
+  }
+
+  public static isNumber(value: any, argumentName: string): IGuardResult {
+    if (typeof value === "number") {
+      return { succeeded: true };
+    }
+
+    return {
+      succeeded: false,
+      message: `${argumentName} is not type of number`
+    };
+  }
 }

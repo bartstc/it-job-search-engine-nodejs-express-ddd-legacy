@@ -1,5 +1,5 @@
 import {
-  BaseEntity,
+  BaseEntity, Column,
   CreateDateColumn,
   Entity,
   OneToMany,
@@ -25,6 +25,9 @@ export class Employer extends BaseEntity {
     (user: User) => user.employer
   )
   user!: User;
+
+  @Column()
+  userId!: string;
 
   @OneToMany(
     () => Offer,

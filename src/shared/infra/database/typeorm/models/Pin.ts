@@ -36,4 +36,7 @@ export class Pin extends BaseEntity {
     { onDelete: "CASCADE", onUpdate: "CASCADE" }
   )
   offer!: Offer;
+
+  @Column()
+  offerId!: string;
 }

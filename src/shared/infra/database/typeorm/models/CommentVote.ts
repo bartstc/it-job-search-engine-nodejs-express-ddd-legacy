@@ -30,10 +30,16 @@ export class CommentVote extends BaseEntity {
   )
   employer!: Employer;
 
+  @Column()
+  employerId!: string;
+
   @ManyToOne(
     () => Comment,
     comment => comment.votes,
     { onDelete: "CASCADE", onUpdate: "CASCADE" }
   )
   comment!: Comment;
+
+  @Column()
+  commentId!: string;
 }

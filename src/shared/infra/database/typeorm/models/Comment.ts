@@ -33,12 +33,18 @@ export class Comment extends BaseEntity {
   )
   employer!: Employer;
 
+  @Column()
+  employerId!: string;
+
   @ManyToOne(
     () => Offer,
     offer => offer.comments,
     { onDelete: "CASCADE", onUpdate: "CASCADE" }
   )
   offer!: Offer;
+
+  @Column()
+  offerId!: string;
 
   @OneToMany(
     () => CommentVote,

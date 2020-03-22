@@ -1,43 +1,43 @@
 import { ValueObject } from "shared/domain";
 import { Guard, Result } from "shared/core";
 
-interface CommentTextProps {
+interface StreetNameProps {
   value: string;
 }
 
-export class CommentText extends ValueObject<CommentTextProps> {
+export class StreetName extends ValueObject<StreetNameProps> {
   public static minLength = 2;
-  public static maxLength = 10000;
+  public static maxLength = 85;
 
   get value() {
     return this.props.value;
   }
 
-  private constructor(props: CommentTextProps) {
+  private constructor(props: StreetNameProps) {
     super(props);
   }
 
-  public static create(props: CommentTextProps): Result<CommentText> {
+  public static create(props: StreetNameProps): Result<StreetName> {
     const nullGuardResult = Guard.againstNullOrUndefined(
       props.value,
-      "commentText"
+      "streetName"
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<CommentText>(nullGuardResult.message!);
+      return Result.fail<StreetName>(nullGuardResult.message!);
     }
 
     const minGuardResult = Guard.againstAtLeast(this.minLength, props.value);
     const maxGuardResult = Guard.againstAtMost(this.maxLength, props.value);
 
     if (!minGuardResult.succeeded) {
-      return Result.fail<CommentText>(minGuardResult.message!);
+      return Result.fail<StreetName>(minGuardResult.message!);
     }
 
     if (!maxGuardResult.succeeded) {
-      return Result.fail<CommentText>(maxGuardResult.message!);
+      return Result.fail<StreetName>(maxGuardResult.message!);
     }
 
-    return Result.ok<CommentText>(new CommentText(props));
+    return Result.ok<StreetName>(new StreetName(props));
   }
 }
