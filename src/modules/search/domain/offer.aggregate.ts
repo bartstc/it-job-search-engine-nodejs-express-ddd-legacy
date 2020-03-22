@@ -21,8 +21,8 @@ import { SkillsList } from "./skillsList";
 import { Coordinate } from "./coordinate";
 import { OfferId } from "./offerId";
 import { EmployerId } from "./employerId";
-import { Comments } from "./comments";
-import { Comment } from "./comment";
+import { CommentsList } from "./comments.list";
+import { Comment } from "./comment.entity";
 
 export interface OfferProps {
   employerId: EmployerId;
@@ -42,7 +42,7 @@ export interface OfferProps {
   latitude: Coordinate;
   longitude: Coordinate;
   totalNumComments: number;
-  comments: Comments;
+  comments: CommentsList;
 }
 
 export class Offer extends AggregateRoot<OfferProps> {
@@ -118,7 +118,7 @@ export class Offer extends AggregateRoot<OfferProps> {
     return this.props.totalNumComments;
   }
 
-  get comments(): Comments {
+  get comments(): CommentsList {
     return this.props.comments;
   }
 
@@ -211,7 +211,7 @@ export class Offer extends AggregateRoot<OfferProps> {
 
     const defaultValues: OfferProps = {
       ...props,
-      comments: props.comments ?? Comments.create([]),
+      comments: props.comments ?? CommentsList.create([]),
       totalNumComments: props.totalNumComments ?? 0
     };
 

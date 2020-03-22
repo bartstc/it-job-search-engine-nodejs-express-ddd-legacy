@@ -6,15 +6,15 @@ import { Entity, UniqueEntityID } from "shared/domain";
 import { EmployerId } from "./employerId";
 import { CommentText } from "./commentText";
 import { OfferId } from "./offerId";
-import { CommentVotes } from "./commentVotes";
+import { CommentVotesList } from "./commentVotes.list";
 import { CommentId } from "./commentId";
-import { CommentVote } from "./commentVote";
+import { CommentVoteEntity } from "./commentVote.entity";
 
 export interface CommentProps {
   employerId: EmployerId;
   text: CommentText;
   offerId: OfferId;
-  votes: CommentVotes;
+  votes: CommentVotesList;
   points: number;
 }
 
@@ -66,17 +66,17 @@ export class Comment extends Entity<CommentProps> {
     return tally;
   }
 
-  public removeVote(vote: CommentVote): Result<void> {
+  public removeVote(vote: CommentVoteEntity): Result<void> {
     this.props.votes.remove(vote);
     return Result.ok<void>();
   }
 
-  public addVote(vote: CommentVote): Result<void> {
+  public addVote(vote: CommentVoteEntity): Result<void> {
     this.props.votes.add(vote);
     return Result.ok<void>();
   }
 
-  public getVotes(): CommentVotes {
+  public getVotes(): CommentVotesList {
     return this.props.votes;
   }
 
@@ -106,14 +106,14 @@ export class Comment extends Entity<CommentProps> {
       const defaultCommentProps: CommentProps = {
         ...props,
         points: has(props, "points") ? props.points : 0,
-        votes: props.votes ? props.votes : CommentVotes.create([])
+        votes: props.votes ? props.votes : CommentVotesList.create([])
       };
 
       const comment = new Comment(defaultCommentProps, id);
 
       if (isNewComment) {
         comment.addVote(
-          CommentVote.createUpvote(
+          CommentVoteEntity.createUpvote(
             props.employerId,
             comment.commentId
           ).getValue()

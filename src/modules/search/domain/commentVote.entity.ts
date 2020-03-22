@@ -11,7 +11,7 @@ interface CommentVoteProps {
   type: VoteType;
 }
 
-export class CommentVote extends Entity<CommentVoteProps> {
+export class CommentVoteEntity extends Entity<CommentVoteProps> {
   get id(): UniqueEntityID {
     return this._id;
   }
@@ -43,7 +43,7 @@ export class CommentVote extends Entity<CommentVoteProps> {
   public static create(
     props: CommentVoteProps,
     id?: UniqueEntityID
-  ): Result<CommentVote> {
+  ): Result<CommentVoteEntity> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
       { argument: props.employerId, argumentName: "employerId" },
       { argument: props.commentId, argumentName: "commentId" },
@@ -51,29 +51,29 @@ export class CommentVote extends Entity<CommentVoteProps> {
     ]);
 
     if (!guardResult.succeeded) {
-      return Result.fail<CommentVote>(guardResult.message!);
+      return Result.fail<CommentVoteEntity>(guardResult.message!);
     } else {
-      return Result.ok<CommentVote>(new CommentVote(props, id));
+      return Result.ok<CommentVoteEntity>(new CommentVoteEntity(props, id));
     }
   }
 
   public static createUpvote(
     employerId: EmployerId,
     commentId: CommentId
-  ): Result<CommentVote> {
+  ): Result<CommentVoteEntity> {
     const memberGuard = Guard.againstNullOrUndefined(employerId, "employerId");
     const postGuard = Guard.againstNullOrUndefined(commentId, "commentId");
 
     if (!memberGuard.succeeded) {
-      return Result.fail<CommentVote>(memberGuard.message!);
+      return Result.fail<CommentVoteEntity>(memberGuard.message!);
     }
 
     if (!postGuard.succeeded) {
-      return Result.fail<CommentVote>(postGuard.message!);
+      return Result.fail<CommentVoteEntity>(postGuard.message!);
     }
 
-    return Result.ok<CommentVote>(
-      new CommentVote({
+    return Result.ok<CommentVoteEntity>(
+      new CommentVoteEntity({
         employerId,
         commentId,
         type: "UPVOTE"
@@ -84,20 +84,20 @@ export class CommentVote extends Entity<CommentVoteProps> {
   public static createDownvote(
     employerId: EmployerId,
     commentId: CommentId
-  ): Result<CommentVote> {
+  ): Result<CommentVoteEntity> {
     const memberGuard = Guard.againstNullOrUndefined(employerId, "employerId");
     const postGuard = Guard.againstNullOrUndefined(commentId, "commentId");
 
     if (!memberGuard.succeeded) {
-      return Result.fail<CommentVote>(memberGuard.message!);
+      return Result.fail<CommentVoteEntity>(memberGuard.message!);
     }
 
     if (!postGuard.succeeded) {
-      return Result.fail<CommentVote>(postGuard.message!);
+      return Result.fail<CommentVoteEntity>(postGuard.message!);
     }
 
-    return Result.ok<CommentVote>(
-      new CommentVote({
+    return Result.ok<CommentVoteEntity>(
+      new CommentVoteEntity({
         employerId,
         commentId,
         type: "DOWNVOTE"

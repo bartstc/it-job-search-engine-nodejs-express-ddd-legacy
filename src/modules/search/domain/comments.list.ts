@@ -1,8 +1,8 @@
 import { WatchedList } from "shared/domain/WatchedList";
 
-import { Comment } from "./comment";
+import { Comment } from "./comment.entity";
 
-export class Comments extends WatchedList<Comment> {
+export class CommentsList extends WatchedList<Comment> {
   private constructor(initialVotes: Comment[]) {
     super(initialVotes);
   }
@@ -11,7 +11,7 @@ export class Comments extends WatchedList<Comment> {
     return a.equals(b);
   }
 
-  public static create(comments?: Comment[]): Comments {
-    return new Comments(comments ? comments : []);
+  public static create(comments?: Comment[]): CommentsList {
+    return new CommentsList(comments ? comments : []);
   }
 }
