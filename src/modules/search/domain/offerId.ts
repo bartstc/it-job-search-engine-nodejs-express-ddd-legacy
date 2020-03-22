@@ -11,6 +11,6 @@ export class OfferId extends Entity<any> {
   }
 
   public static create(id?: UniqueEntityID): Result<OfferId> {
-    return Result.ok<OfferId>(new OfferId(id));
+    return Result.ok(new OfferId(id));
   }
 }

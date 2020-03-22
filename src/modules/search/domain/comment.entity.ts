@@ -68,12 +68,12 @@ export class Comment extends Entity<CommentProps> {
 
   public removeVote(vote: CommentVoteEntity): Result<void> {
     this.props.votes.remove(vote);
-    return Result.ok<void>();
+    return Result.ok();
   }
 
   public addVote(vote: CommentVoteEntity): Result<void> {
     this.props.votes.add(vote);
-    return Result.ok<void>();
+    return Result.ok();
   }
 
   public getVotes(): CommentVotesList {
@@ -99,7 +99,7 @@ export class Comment extends Entity<CommentProps> {
     ]);
 
     if (!nullGuard.succeeded) {
-      return Result.fail<Comment>(nullGuard.message!);
+      return Result.fail(nullGuard.message!);
     } else {
       const isNewComment = !!id;
 
@@ -120,7 +120,7 @@ export class Comment extends Entity<CommentProps> {
         );
       }
 
-      return Result.ok<Comment>(comment);
+      return Result.ok(comment);
     }
   }
 }

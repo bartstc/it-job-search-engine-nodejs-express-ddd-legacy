@@ -24,20 +24,20 @@ export class CommentText extends ValueObject<CommentTextProps> {
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<CommentText>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const minGuardResult = Guard.againstAtLeast(this.minLength, props.value);
     const maxGuardResult = Guard.againstAtMost(this.maxLength, props.value);
 
     if (!minGuardResult.succeeded) {
-      return Result.fail<CommentText>(minGuardResult.message!);
+      return Result.fail(minGuardResult.message!);
     }
 
     if (!maxGuardResult.succeeded) {
-      return Result.fail<CommentText>(maxGuardResult.message!);
+      return Result.fail(maxGuardResult.message!);
     }
 
-    return Result.ok<CommentText>(new CommentText(props));
+    return Result.ok(new CommentText(props));
   }
 }

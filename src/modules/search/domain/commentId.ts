@@ -11,6 +11,6 @@ export class CommentId extends Entity<any> {
   }
 
   public static create(id?: UniqueEntityID): Result<CommentId> {
-    return Result.ok<CommentId>(new CommentId(id));
+    return Result.ok(new CommentId(id));
   }
 }

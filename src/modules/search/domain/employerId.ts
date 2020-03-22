@@ -11,6 +11,6 @@ export class EmployerId extends Entity<any> {
   }
 
   public static create(id?: UniqueEntityID): Result<EmployerId> {
-    return Result.ok<EmployerId>(new EmployerId(id));
+    return Result.ok(new EmployerId(id));
   }
 }

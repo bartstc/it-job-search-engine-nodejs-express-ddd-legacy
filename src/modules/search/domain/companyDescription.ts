@@ -26,20 +26,20 @@ export class CompanyDescription extends ValueObject<CompanyDescriptionProps> {
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<CompanyDescription>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const minGuardResult = Guard.againstAtLeast(this.minLength, props.value);
     const maxGuardResult = Guard.againstAtMost(this.maxLength, props.value);
 
     if (!minGuardResult.succeeded) {
-      return Result.fail<CompanyDescription>(minGuardResult.message!);
+      return Result.fail(minGuardResult.message!);
     }
 
     if (!maxGuardResult.succeeded) {
-      return Result.fail<CompanyDescription>(maxGuardResult.message!);
+      return Result.fail(maxGuardResult.message!);
     }
 
-    return Result.ok<CompanyDescription>(new CompanyDescription(props));
+    return Result.ok(new CompanyDescription(props));
   }
 }

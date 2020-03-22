@@ -51,9 +51,9 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
     ]);
 
     if (!guardResult.succeeded) {
-      return Result.fail<CommentVoteEntity>(guardResult.message!);
+      return Result.fail(guardResult.message!);
     } else {
-      return Result.ok<CommentVoteEntity>(new CommentVoteEntity(props, id));
+      return Result.ok(new CommentVoteEntity(props, id));
     }
   }
 
@@ -65,14 +65,14 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
     const postGuard = Guard.againstNullOrUndefined(commentId, "commentId");
 
     if (!memberGuard.succeeded) {
-      return Result.fail<CommentVoteEntity>(memberGuard.message!);
+      return Result.fail(memberGuard.message!);
     }
 
     if (!postGuard.succeeded) {
-      return Result.fail<CommentVoteEntity>(postGuard.message!);
+      return Result.fail(postGuard.message!);
     }
 
-    return Result.ok<CommentVoteEntity>(
+    return Result.ok(
       new CommentVoteEntity({
         employerId,
         commentId,
@@ -89,14 +89,14 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
     const postGuard = Guard.againstNullOrUndefined(commentId, "commentId");
 
     if (!memberGuard.succeeded) {
-      return Result.fail<CommentVoteEntity>(memberGuard.message!);
+      return Result.fail(memberGuard.message!);
     }
 
     if (!postGuard.succeeded) {
-      return Result.fail<CommentVoteEntity>(postGuard.message!);
+      return Result.fail(postGuard.message!);
     }
 
-    return Result.ok<CommentVoteEntity>(
+    return Result.ok(
       new CommentVoteEntity({
         employerId,
         commentId,

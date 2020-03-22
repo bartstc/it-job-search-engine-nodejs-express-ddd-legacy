@@ -21,7 +21,7 @@ export class SkillsList extends ValueObject<SkillsListProps> {
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<SkillsList>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const listOfStringsGuardResult = Guard.isListOfStrings(
@@ -30,9 +30,9 @@ export class SkillsList extends ValueObject<SkillsListProps> {
     );
 
     if (!listOfStringsGuardResult.succeeded) {
-      return Result.fail<SkillsList>(listOfStringsGuardResult.message!);
+      return Result.fail(listOfStringsGuardResult.message!);
     }
 
-    return Result.ok<SkillsList>(new SkillsList(props));
+    return Result.ok(new SkillsList(props));
   }
 }

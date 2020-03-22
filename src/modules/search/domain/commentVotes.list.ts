@@ -1,4 +1,5 @@
-import { WatchedList } from "../../../shared/domain/WatchedList";
+import { WatchedList } from "shared/domain/WatchedList";
+
 import { CommentVoteEntity } from "./commentVote.entity";
 
 export class CommentVotesList extends WatchedList<CommentVoteEntity> {

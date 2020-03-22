@@ -19,20 +19,22 @@ export class Coordinate extends ValueObject<CoordinateProps> {
     super(props);
   }
 
-  public static createLatitudeCoord(props: CoordinateProps) {
+  public static createLatitudeCoord(
+    props: CoordinateProps
+  ): Result<Coordinate> {
     const nullGuardResult = Guard.againstNullOrUndefined(
       props.value,
       "latitude"
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<Coordinate>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const isNumberGuardResult = Guard.isNumber(props.value, "latitude");
 
     if (!isNumberGuardResult.succeeded) {
-      return Result.fail<Coordinate>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const isRangeGuardResult = Guard.inRange(
@@ -43,26 +45,28 @@ export class Coordinate extends ValueObject<CoordinateProps> {
     );
 
     if (!isRangeGuardResult.succeeded) {
-      return Result.fail<Coordinate>(isRangeGuardResult.message!);
+      return Result.fail(isRangeGuardResult.message!);
     }
 
-    return Result.ok<Coordinate>(new Coordinate(props));
+    return Result.ok(new Coordinate(props));
   }
 
-  public static createLongitudeCoord(props: CoordinateProps) {
+  public static createLongitudeCoord(
+    props: CoordinateProps
+  ): Result<Coordinate> {
     const nullGuardResult = Guard.againstNullOrUndefined(
       props.value,
       "longitude"
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<Coordinate>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const isNumberGuardResult = Guard.isNumber(props.value, "longitude");
 
     if (!isNumberGuardResult.succeeded) {
-      return Result.fail<Coordinate>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const isRangeGuardResult = Guard.inRange(
@@ -73,9 +77,9 @@ export class Coordinate extends ValueObject<CoordinateProps> {
     );
 
     if (!isRangeGuardResult.succeeded) {
-      return Result.fail<Coordinate>(isRangeGuardResult.message!);
+      return Result.fail(isRangeGuardResult.message!);
     }
 
-    return Result.ok<Coordinate>(new Coordinate(props));
+    return Result.ok(new Coordinate(props));
   }
 }

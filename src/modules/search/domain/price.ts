@@ -17,17 +17,17 @@ export class Price extends ValueObject<PriceProps> {
     super(props);
   }
 
-  public static create(props: PriceProps) {
+  public static create(props: PriceProps): Result<Price> {
     const nullGuardResult = Guard.againstNullOrUndefined(props.value, "price");
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<Price>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const isNumberGuardResult = Guard.isNumber(props.value, "price");
 
     if (!isNumberGuardResult.succeeded) {
-      return Result.fail<Price>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const isRangeGuardResult = Guard.inRange(
@@ -38,9 +38,9 @@ export class Price extends ValueObject<PriceProps> {
     );
 
     if (!isRangeGuardResult.succeeded) {
-      return Result.fail<Price>(isRangeGuardResult.message!);
+      return Result.fail(isRangeGuardResult.message!);
     }
 
-    return Result.ok<Price>(new Price(props));
+    return Result.ok(new Price(props));
   }
 }

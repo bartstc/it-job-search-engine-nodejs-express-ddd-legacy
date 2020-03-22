@@ -24,20 +24,20 @@ export class CityName extends ValueObject<CityNameProps> {
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<CityName>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const minGuardResult = Guard.againstAtLeast(this.minLength, props.value);
     const maxGuardResult = Guard.againstAtMost(this.maxLength, props.value);
 
     if (!minGuardResult.succeeded) {
-      return Result.fail<CityName>(minGuardResult.message!);
+      return Result.fail(minGuardResult.message!);
     }
 
     if (!maxGuardResult.succeeded) {
-      return Result.fail<CityName>(maxGuardResult.message!);
+      return Result.fail(maxGuardResult.message!);
     }
 
-    return Result.ok<CityName>(new CityName(props));
+    return Result.ok(new CityName(props));
   }
 }

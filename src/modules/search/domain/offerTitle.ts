@@ -24,20 +24,20 @@ export class OfferTitle extends ValueObject<OfferTitleProps> {
     );
 
     if (!nullGuardResult.succeeded) {
-      return Result.fail<OfferTitle>(nullGuardResult.message!);
+      return Result.fail(nullGuardResult.message!);
     }
 
     const minGuardResult = Guard.againstAtLeast(this.minLength, props.value);
     const maxGuardResult = Guard.againstAtMost(this.maxLength, props.value);
 
     if (!minGuardResult.succeeded) {
-      return Result.fail<OfferTitle>(minGuardResult.message!);
+      return Result.fail(minGuardResult.message!);
     }
 
     if (!maxGuardResult.succeeded) {
-      return Result.fail<OfferTitle>(maxGuardResult.message!);
+      return Result.fail(maxGuardResult.message!);
     }
 
-    return Result.ok<OfferTitle>(new OfferTitle(props));
+    return Result.ok(new OfferTitle(props));
   }
 }
