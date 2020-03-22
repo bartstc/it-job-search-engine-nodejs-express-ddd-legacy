@@ -25,45 +25,15 @@ export abstract class WatchedList<T> {
     return this.removed;
   }
 
+  public exists(item: T): boolean {
+    return this.isCurrentItem(item);
+  }
+
   private isCurrentItem(item: T): boolean {
     return (
       this.currentItems.filter((v: T) => this.compareItems(item, v)).length !==
       0
     );
-  }
-
-  private isNewItem(item: T): boolean {
-    return this.new.filter((v: T) => this.compareItems(item, v)).length !== 0;
-  }
-
-  private isRemovedItem(item: T): boolean {
-    return (
-      this.removed.filter((v: T) => this.compareItems(item, v)).length !== 0
-    );
-  }
-
-  private removeFromNew(item: T): void {
-    this.new = this.new.filter(v => !this.compareItems(v, item));
-  }
-
-  private removeFromCurrent(item: T): void {
-    this.currentItems = this.currentItems.filter(
-      v => !this.compareItems(item, v)
-    );
-  }
-
-  private removeFromRemoved(item: T): void {
-    this.removed = this.removed.filter(v => !this.compareItems(item, v));
-  }
-
-  private wasAddedInitially(item: T): boolean {
-    return (
-      this.initial.filter((v: T) => this.compareItems(item, v)).length !== 0
-    );
-  }
-
-  public exists(item: T): boolean {
-    return this.isCurrentItem(item);
   }
 
   public add(item: T): void {
@@ -80,6 +50,26 @@ export abstract class WatchedList<T> {
     }
   }
 
+  private isRemovedItem(item: T): boolean {
+    return (
+      this.removed.filter((v: T) => this.compareItems(item, v)).length !== 0
+    );
+  }
+
+  private removeFromRemoved(item: T): void {
+    this.removed = this.removed.filter(v => !this.compareItems(item, v));
+  }
+
+  private wasAddedInitially(item: T): boolean {
+    return (
+      this.initial.filter((v: T) => this.compareItems(item, v)).length !== 0
+    );
+  }
+
+  private isNewItem(item: T): boolean {
+    return this.new.filter((v: T) => this.compareItems(item, v)).length !== 0;
+  }
+
   public remove(item: T): void {
     this.removeFromCurrent(item);
 
@@ -91,5 +81,15 @@ export abstract class WatchedList<T> {
     if (!this.isRemovedItem(item)) {
       this.removed.push(item);
     }
+  }
+
+  private removeFromCurrent(item: T): void {
+    this.currentItems = this.currentItems.filter(
+      v => !this.compareItems(item, v)
+    );
+  }
+
+  private removeFromNew(item: T): void {
+    this.new = this.new.filter(v => !this.compareItems(v, item));
   }
 }

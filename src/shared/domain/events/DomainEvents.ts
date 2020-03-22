@@ -26,34 +26,6 @@ export class DomainEvents {
   }
 
   /**
-   * @method dispatchAggregateEvents
-   * @static
-   * @private
-   * @desc Call all of the handlers for any domain events on this aggregate.
-   */
-
-  private static dispatchAggregateEvents(
-    aggregate: AggregateRoot<unknown>
-  ): void {
-    aggregate.domainEvents.forEach((event: IDomainEvent) =>
-      this.dispatch(event)
-    );
-  }
-
-  private static removeAggregateFromMarkedDispatchList(
-    aggregate: AggregateRoot<unknown>
-  ): void {
-    const index = this.markedAggregates.findIndex(a => a.equals(aggregate));
-    this.markedAggregates.splice(index, 1);
-  }
-
-  private static findMarkedAggregateByID(
-    id: UniqueEntityID
-  ): AggregateRoot<unknown> | undefined {
-    return this.markedAggregates.find(aggregate => aggregate.id.equals(id));
-  }
-
-  /**
    * @method dispatchEventsForAggregate
    * @static
    * @desc When all we know is the ID of the aggregate, call this
@@ -69,6 +41,45 @@ export class DomainEvents {
       aggregate.clearEvents();
       this.removeAggregateFromMarkedDispatchList(aggregate);
     }
+  }
+
+  private static findMarkedAggregateByID(
+    id: UniqueEntityID
+  ): AggregateRoot<unknown> | undefined {
+    return this.markedAggregates.find(aggregate => aggregate.id.equals(id));
+  }
+
+  /**
+   * @method dispatchAggregateEvents
+   * @static
+   * @private
+   * @desc Call all of the handlers for any domain events on this aggregate.
+   */
+
+  private static dispatchAggregateEvents(
+    aggregate: AggregateRoot<unknown>
+  ): void {
+    aggregate.domainEvents.forEach((event: IDomainEvent) =>
+      this.dispatch(event)
+    );
+  }
+
+  private static dispatch(event: IDomainEvent): void {
+    const eventClassName: string = event.constructor.name;
+
+    if (this.handlersMap.hasOwnProperty(eventClassName)) {
+      const handlers: any[] = this.handlersMap[eventClassName];
+      for (let handler of handlers) {
+        handler(event);
+      }
+    }
+  }
+
+  private static removeAggregateFromMarkedDispatchList(
+    aggregate: AggregateRoot<unknown>
+  ): void {
+    const index = this.markedAggregates.findIndex(a => a.equals(aggregate));
+    this.markedAggregates.splice(index, 1);
   }
 
   /**
@@ -114,15 +125,4 @@ export class DomainEvents {
    * @static
    * @desc Invokes all of the subscribers to a particular domain event.
    */
-
-  private static dispatch(event: IDomainEvent): void {
-    const eventClassName: string = event.constructor.name;
-
-    if (this.handlersMap.hasOwnProperty(eventClassName)) {
-      const handlers: any[] = this.handlersMap[eventClassName];
-      for (let handler of handlers) {
-        handler(event);
-      }
-    }
-  }
 }
