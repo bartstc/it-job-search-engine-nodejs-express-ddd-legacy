@@ -36,6 +36,10 @@ export class User extends AggregateRoot<UserProps> {
     return this.props.username;
   }
 
+  get password(): UserPassword {
+    return this.props.password;
+  }
+
   get isDeleted(): boolean {
     return this.props.isDeleted;
   }

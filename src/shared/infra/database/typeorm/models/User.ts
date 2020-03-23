@@ -12,7 +12,7 @@ import {
 import { Employer } from "./Employer";
 
 @Entity()
-@Unique(["user_email", "login"])
+@Unique(["email", "username"])
 export class User extends BaseEntity {
   @PrimaryColumn()
   userId!: string;
