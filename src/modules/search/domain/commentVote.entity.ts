@@ -11,7 +11,7 @@ interface CommentVoteProps {
   type: VoteType;
 }
 
-export class CommentVoteEntity extends Entity<CommentVoteProps> {
+export class CommentVote extends Entity<CommentVoteProps> {
   get id(): UniqueEntityID {
     return this._id;
   }
@@ -43,7 +43,7 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
   public static create(
     props: CommentVoteProps,
     id?: UniqueEntityID
-  ): Result<CommentVoteEntity> {
+  ): Result<CommentVote> {
     const guardResult = Guard.againstNullOrUndefinedBulk([
       { argument: props.employerId, argumentName: "employerId" },
       { argument: props.commentId, argumentName: "commentId" },
@@ -53,14 +53,14 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
     if (!guardResult.succeeded) {
       return Result.fail(guardResult.message!);
     } else {
-      return Result.ok(new CommentVoteEntity(props, id));
+      return Result.ok(new CommentVote(props, id));
     }
   }
 
   public static createUpvote(
     employerId: EmployerId,
     commentId: CommentId
-  ): Result<CommentVoteEntity> {
+  ): Result<CommentVote> {
     const memberGuard = Guard.againstNullOrUndefined(employerId, "employerId");
     const postGuard = Guard.againstNullOrUndefined(commentId, "commentId");
 
@@ -73,7 +73,7 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
     }
 
     return Result.ok(
-      new CommentVoteEntity({
+      new CommentVote({
         employerId,
         commentId,
         type: "UPVOTE"
@@ -84,7 +84,7 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
   public static createDownvote(
     employerId: EmployerId,
     commentId: CommentId
-  ): Result<CommentVoteEntity> {
+  ): Result<CommentVote> {
     const memberGuard = Guard.againstNullOrUndefined(employerId, "employerId");
     const postGuard = Guard.againstNullOrUndefined(commentId, "commentId");
 
@@ -97,7 +97,7 @@ export class CommentVoteEntity extends Entity<CommentVoteProps> {
     }
 
     return Result.ok(
-      new CommentVoteEntity({
+      new CommentVote({
         employerId,
         commentId,
         type: "DOWNVOTE"

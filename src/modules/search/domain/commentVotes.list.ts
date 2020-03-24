@@ -1,17 +1,17 @@
 import { WatchedList } from "shared/domain/WatchedList";
 
-import { CommentVoteEntity } from "./commentVote.entity";
+import { CommentVote } from "./commentVote.entity";
 
-export class CommentVotesList extends WatchedList<CommentVoteEntity> {
-  private constructor(initialVotes: CommentVoteEntity[]) {
+export class CommentVotesList extends WatchedList<CommentVote> {
+  private constructor(initialVotes: CommentVote[]) {
     super(initialVotes);
   }
 
-  public compareItems(a: CommentVoteEntity, b: CommentVoteEntity): boolean {
+  public compareItems(a: CommentVote, b: CommentVote): boolean {
     return a.equals(b);
   }
 
-  public static create(initialVotes?: CommentVoteEntity[]): CommentVotesList {
+  public static create(initialVotes?: CommentVote[]): CommentVotesList {
     return new CommentVotesList(initialVotes ? initialVotes : []);
   }
 }

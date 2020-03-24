@@ -6,13 +6,14 @@ import { UserName } from "./userName";
 import { UserPassword } from "./userPassword";
 import { JWTToken, RefreshToken } from "./jwt";
 import { UserId } from "./userId";
+import { UserCreated } from "./events";
 
 interface UserProps {
   email: UserEmail;
   username: UserName;
   password: UserPassword;
-  isDeleted?: boolean;
-  isAdminUser?: boolean;
+  isDeleted: boolean;
+  isAdminUser: boolean;
   accessToken?: JWTToken;
   refreshToken?: RefreshToken;
   lastLogin?: Date;
@@ -41,11 +42,11 @@ export class User extends AggregateRoot<UserProps> {
   }
 
   get isDeleted(): boolean {
-    return !!this.props.isDeleted;
+    return this.props.isDeleted;
   }
 
   get isAdminUser(): boolean {
-    return !!this.props.isAdminUser;
+    return this.props.isAdminUser;
   }
 
   get lastLogin() {
@@ -108,7 +109,7 @@ export class User extends AggregateRoot<UserProps> {
       return Result.fail(guardResult.message!);
     }
 
-    // const isNewUser = !!id;
+    const isNewUser = !!id;
 
     const user = new User(
       {
@@ -119,10 +120,9 @@ export class User extends AggregateRoot<UserProps> {
       id
     );
 
-    // todo: domain events
-    // if (isNewUser) {
-    //   user.addDomainEvent(new UserCreated(user));
-    // }
+    if (isNewUser) {
+      user.addDomainEvent(new UserCreated(user));
+    }
 
     return Result.ok(user);
   }

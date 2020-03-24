@@ -8,7 +8,7 @@ import { CommentText } from "./commentText";
 import { OfferId } from "./offerId";
 import { CommentVotesList } from "./commentVotes.list";
 import { CommentId } from "./commentId";
-import { CommentVoteEntity } from "./commentVote.entity";
+import { CommentVote } from "./commentVote.entity";
 
 export interface CommentProps {
   employerId: EmployerId;
@@ -66,12 +66,12 @@ export class Comment extends Entity<CommentProps> {
     return tally;
   }
 
-  public removeVote(vote: CommentVoteEntity): Result<void> {
+  public removeVote(vote: CommentVote): Result<void> {
     this.props.votes.remove(vote);
     return Result.ok();
   }
 
-  public addVote(vote: CommentVoteEntity): Result<void> {
+  public addVote(vote: CommentVote): Result<void> {
     this.props.votes.add(vote);
     return Result.ok();
   }
@@ -113,7 +113,7 @@ export class Comment extends Entity<CommentProps> {
 
       if (isNewComment) {
         comment.addVote(
-          CommentVoteEntity.createUpvote(
+          CommentVote.createUpvote(
             props.employerId,
             comment.commentId
           ).getValue()

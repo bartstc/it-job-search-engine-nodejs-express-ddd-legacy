@@ -56,7 +56,9 @@ export class CreateUserUseCase
       const userOrError = User.create({
         email,
         password,
-        username
+        username,
+        isAdminUser: false,
+        isDeleted: false
       });
 
       if (!userOrError.isSuccess) {
