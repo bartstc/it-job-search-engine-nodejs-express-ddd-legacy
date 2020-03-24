@@ -1,5 +1,5 @@
 Arguments: 
-  /home/bartosz/Pulpit/DDD/it-job-search-engine-ddd/node_modules/node/bin/node /usr/share/yarn/bin/yarn.js add @types/rand-token
+  /home/bartosz/Pulpit/DDD/it-job-search-engine-ddd/node_modules/node/bin/node /usr/share/yarn/bin/yarn.js add validator dumpurify jsdom
 
 PATH: 
   /home/bartosz/Pulpit/DDD/it-job-search-engine-ddd/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2frand-token: Not found
+  Error: https://registry.yarnpkg.com/dumpurify: Not found
       at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66987:18)
       at Request.self.callback (/usr/share/yarn/lib/cli.js:140748:22)
       at Request.emit (events.js:316:20)
