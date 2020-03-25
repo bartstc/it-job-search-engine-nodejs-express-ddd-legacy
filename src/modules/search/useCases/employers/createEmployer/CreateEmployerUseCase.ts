@@ -1,5 +1,4 @@
-import { Either, left, Result, right } from "shared/core/Result";
-import { AppError, UseCase } from "shared/core";
+import { AppError, UseCase, Result, Either, left, right } from "shared/core";
 
 import { IEmployerRepo } from "../../../repos/employerRepo";
 import { IUserRepo } from "../../../../users/repos/userRepo";

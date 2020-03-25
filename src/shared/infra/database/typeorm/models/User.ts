@@ -1,4 +1,5 @@
 import {
+  AfterUpdate,
   BaseEntity,
   Column,
   CreateDateColumn,
@@ -10,6 +11,7 @@ import {
 } from "typeorm";
 
 import { Employer } from "./Employer";
+import { DomainEvents, UniqueEntityID } from "../../../../domain";
 
 @Entity()
 @Unique(["email", "username"])
@@ -41,4 +43,12 @@ export class User extends BaseEntity {
   )
   @JoinColumn()
   employer!: Employer;
+
+  @AfterUpdate()
+  dispatchAggregateEvents() {
+    console.log("Dispatch aggregate events");
+
+    const aggregateId = new UniqueEntityID(this.userId);
+    DomainEvents.dispatchEventsForAggregate(aggregateId);
+  }
 }

@@ -1,6 +1,6 @@
 import { IUserRepo } from "../userRepo";
 import { User, UserEmail, UserName } from "../../domain";
-import { UserMap } from "../../mappers/userMap";
+import { UserMap } from "../../mappers";
 
 export class TypeormUserRepo implements IUserRepo {
   private userRepository: any;
